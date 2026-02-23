@@ -1,14 +1,16 @@
-# Online Game Boilerplate
+# Who Am I? (Who Know?)
 
-A modern, real-time multiplayer game boilerplate built with a Turborepo monorepo architecture. This boilerplate provides a robust foundation for building any session-based online game.
+A real-time, modern multiplayer "Who Am I?" (Insider-style) game built with a Turborepo monorepo architecture. 
 
 ## 🚀 Features
 
-- **Generic Session Management:** Built-in lobby, connection handling, and room state syncing.
-- **Real-time Engine:** Powered by Socket.io for immediate state propagation across clients.
-- **Generic Game State:** Easily extend `gameState` to implement your custom game logic via `sendAction` events.
-- **Working Example:** Comes pre-configured with a fully playable **Tic-Tac-Toe (OX)** game to demonstrate state handling and socket events.
-- **Mobile-First UX/UI:** Fluid, responsive Tailwind layouts ensuring the game looks great on phones, tablets, and desktop.
+- **Dynamic Word Selection:** Support for three distinct modes:
+    - **HOST_INPUT:** Host assigns words to players (host doesn't participate).
+    - **RANDOM:** Words are randomly pulled from a database category.
+    - **PLAYER_INPUT:** Each player submits a word; duplicates are rejected, and words are shuffled/assigned blindly.
+- **One Guess Rule:** Players have one final guess per game. If they guess incorrectly during the turn phase, they are eliminated for the rest of the round.
+- **Real-time Engine:** Powered by Socket.io for immediate state propagation, voting, and turn management.
+- **Mobile-First UX/UI:** Fluid, responsive Tailwind v4 layouts optimized for mobile devices.
 - **Modern Tech Stack:** React, Next.js 16 (App Router), NestJS 11, Prisma, and Tailwind CSS v4.
 
 ## 📌 Getting Started Locally
@@ -25,10 +27,11 @@ A modern, real-time multiplayer game boilerplate built with a Turborepo monorepo
    docker compose up -d
    ```
 
-3. Initialize Prisma and push schema:
+3. Initialize Prisma and Seed Words:
 
    ```bash
    pnpm db:push
+   pnpm -F @repo/database db:seed
    ```
 
 4. Start everything:
@@ -37,4 +40,5 @@ A modern, real-time multiplayer game boilerplate built with a Turborepo monorepo
    pnpm dev
    ```
 
-For full documentation on the architecture, how to implement a custom game, and deployment instructions, see [Document.md](./Document.md).
+For full documentation on the architecture and game states, see [Document.md](./Document.md).
+
