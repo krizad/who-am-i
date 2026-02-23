@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoomStatus {
+  LOBBY
+  PLAYING
+  FINISHED
+}
+
+model Room {
+  id         String     @id @default(uuid())
+  code       String     @unique
+  status     RoomStatus @default(LOBBY)
+  roomHostId String
+  players    User[]
+  createdAt  DateTime   @default(now())
+  gameState  Json?
+}
+
+model User {
+  id       String  @id @default(uuid())
+  name     String
+  socketId String  @unique
+  score    Int     @default(0)
+  roomId   String
+  room     Room    @relation(fields: [roomId], references: [id])
+}
+
+model Word {
+  id       String  @id @default(uuid())
+  word     String
+  category String
+  emoji    String?
+
+  @@index([category])
+}
